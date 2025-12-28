@@ -13,6 +13,8 @@ body {
     position: absolute;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     pointer-events: none;
+    transform-origin: center;
+    will-change: transform, opacity;
 }
 #information {
     height: 10%;

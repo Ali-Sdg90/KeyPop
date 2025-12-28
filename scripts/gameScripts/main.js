@@ -1,6 +1,15 @@
 import {animate} from "./animate.js"
 import {createBubble} from "./createBubble.js"
 
+const POP_DURATION_MS = 150;
+
+function popBubble(bubble) {
+    bubble.newBox.style.transition = `transform ${POP_DURATION_MS}ms ease-out, opacity ${POP_DURATION_MS}ms ease-out`;
+    bubble.newBox.style.transform = `translate(${bubble.x}px, ${bubble.y}px) scale(1.25)`;
+    bubble.newBox.style.opacity = "0";
+    setTimeout(() => bubble.newBox.remove(), POP_DURATION_MS);
+}
+
 const params = new URLSearchParams(window.location.search);
 const language = params.get("language");
 const gameLevel = params.get("level");
@@ -77,7 +86,7 @@ function startGame(language, gameLevel) {
         for (let i = 0; i < bubbles.length; i++) {
             const b = bubbles[i];
             if (b.letter === selectedKey) {
-                b.newBox.remove();
+                popBubble(b);
                 bubbles.splice(i, 1);
                 expBubbles ++;
                 remainedBubbles --;
